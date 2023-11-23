@@ -15,7 +15,6 @@ public class Files {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String formattedDateTime = dateFormat.format(currentDate);
         String filename = "src/history/file_" + formattedDateTime + ".txt";
-        Path path = Paths.get("LR3", "history", filename);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             writer.write(data);

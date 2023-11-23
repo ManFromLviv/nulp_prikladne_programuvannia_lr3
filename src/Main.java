@@ -1,17 +1,51 @@
+import battle.Battle;
+import droids.Droid;
+import droids.type.AirDroid;
+import droids.type.AttackDroid;
+
+import java.util.ArrayList;
+
+import static menu.Menu.runMenu;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+    public static String testOneVsOne() {
+        ArrayList<Droid> team1 = new ArrayList<>();
+        ArrayList<Droid> team2 = new ArrayList<>();
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        team1.add(new AttackDroid("0001at"));
+        team2.add(new AttackDroid("0001at"));
+        return Battle.battleFight(team1, team2);
+    }
+
+    public static String testCommandVsCommnand() {
+        ArrayList<Droid> team1 = new ArrayList<>();
+        ArrayList<Droid> team2 = new ArrayList<>();
+
+        team1.add(new AttackDroid("0001at"));
+        team1.add(new AttackDroid("0002at"));
+        team1.add(new AttackDroid("0003at"));
+        team1.add(new AttackDroid("0004at"));
+        team1.add(new AttackDroid("0005at"));
+        team1.add(new AttackDroid("0006at"));
+        team1.add(new AttackDroid("0007at"));
+        team2.add(new AttackDroid("1000at"));
+        team2.add(new AttackDroid("2000at"));
+        team2.add(new AttackDroid("3000at"));
+        team2.add(new AttackDroid("4000at"));
+        team2.add(new AirDroid("5000ai"));
+
+        return Battle.battleFight(team1, team2);
+    }
+
+    public static void testMenu() throws InterruptedException {
+        runMenu();
+    }
+    public static void main(String[] args) throws InterruptedException {
+//        System.out.println(testOneVsOne());
+//        System.out.println(testCommandVsCommnand());
+        testMenu();
     }
 }
