@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00d53bd6-4103-49c2-9779-5a8133684eaf" name="Changes" comment="">
+    <list default="true" id="00d53bd6-4103-49c2-9779-5a8133684eaf" name="Changes" comment="Intial">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/files/Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/files/Files.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/battle/Battle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/battle/Battle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menu/Menu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,12 +71,28 @@
       <updated>1700691517097</updated>
       <workItem from="1700691518180" duration="19589000" />
       <workItem from="1700711282270" duration="27000" />
-      <workItem from="1700732669340" duration="969000" />
+      <workItem from="1700732669340" duration="2938000" />
+      <workItem from="1700839759418" duration="356000" />
+      <workItem from="1700840228546" duration="832000" />
+      <workItem from="1701085100407" duration="296000" />
     </task>
+    <task id="LOCAL-00001" summary="Intial">
+      <option name="closed" value="true" />
+      <created>1700733848593</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700733848593</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Intial" />
+    <option name="LAST_COMMIT_MESSAGE" value="Intial" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

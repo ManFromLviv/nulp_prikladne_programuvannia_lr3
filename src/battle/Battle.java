@@ -52,9 +52,9 @@ public class Battle {
             boolean doHitFirstDroid = new Random().nextBoolean();
             while (droid1.isAlive() && droid2.isAlive()) {
                 if (doHitFirstDroid) {
-                    data.append("\t\t\tАтакує учасник 1 й наніс удар: ").append(droid1.attack(droid2)).append("\n");
+                    data.append("\t\t\tАтакує учасник 1 ").append(droid1).append(" й наніс удар: ").append(droid1.attack(droid2)).append("\n");
                 } else {
-                    data.append("\t\t\tАтакує учасник 2 й наніс удар: ").append(droid2.attack(droid1)).append("\n");
+                    data.append("\t\t\tАтакує учасник 2 ").append(droid2).append(" й наніс удар: ").append(droid2.attack(droid1)).append("\n");
                 }
                 doHitFirstDroid = !doHitFirstDroid;
             }

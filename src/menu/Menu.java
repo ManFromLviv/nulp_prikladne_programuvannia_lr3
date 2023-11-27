@@ -6,7 +6,6 @@ import droids.type.AquaDroid;
 import droids.type.AttackDroid;
 import droids.type.DefenseDroid;
 
-import javax.xml.stream.events.DTD;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +15,6 @@ import static files.Files.readFile;
 
 public class Menu {
     public static void runMenu() throws InterruptedException {
-        final int minCommand = 0, maxCommand = 6;
         ArrayList<Droid> droids = new ArrayList<>();
         boolean menuOpen = true;
         while (menuOpen) {
