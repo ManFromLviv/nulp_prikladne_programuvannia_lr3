@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static battle.Battle.battleFight;
-import static files.Files.createFile;
-import static files.Files.readFile;
+import static files.Files.*;
 
 public class Menu {
     public static void runMenu() throws InterruptedException {
+        final String directoryPath = "src/history/";
         ArrayList<Droid> droids = new ArrayList<>();
         boolean menuOpen = true;
         while (menuOpen) {
@@ -22,10 +22,13 @@ public class Menu {
                 case "0": subMenu0(); break;
                 case "1": subMenu1(droids); break;
                 case "2": subMenu2(droids); break;
-                case "3": subMenu3(droids); break;
-                case "4": subMenu4(droids); break;
+                case "3": subMenu3(directoryPath, droids); break;
+                case "4": subMenu4(directoryPath, droids); break;
                 case "5": subMenu5(droids); break;
                 case "6": subMenu6(droids); break;
+                case "7": subMenu7(directoryPath); break;
+                case "8": subMenu8(directoryPath); break;
+                case "9": subMenu9(directoryPath); break;
                 default: menuOpen = exitMenu(); break;
             }
         }
@@ -46,28 +49,39 @@ public class Menu {
         return isValid;
     }
 
-    public static String getDroids(ArrayList<Droid> droids) {
+    public static String getListDroids(ArrayList<Droid> droids) {
         StringBuilder stringBuilder = new StringBuilder();
         if (droids.isEmpty()) {
-            stringBuilder.append("\tНемає дроїдів").append("\n");
+            stringBuilder.append("\t\tНемає дроїдів").append("\n");
         } else {
             int counter = 1;
             for (Droid droid : droids) {
-                stringBuilder.append("\t").append(counter).append(") ").append(droid).append("\n");
-                counter++;
+                stringBuilder.append("\t\t").append(counter++).append(") ").append(droid).append("\n");
             }
         }
         return stringBuilder.toString();
     }
 
-    public static void getBattle(ArrayList<Droid> team1, ArrayList<Droid> team2) {
+    public static void getBattle(String directoryPath, ArrayList<Droid> team1, ArrayList<Droid> team2) {
         String data = battleFight(team1, team2);
-        String filename = createFile(data);
+        String filename = createFile(directoryPath, data);
         System.out.println("\tДані записані у файл: " + filename);
         System.out.print("\tБажаєте переглянути цей файл ('+' - так): ");
         String command = inputCommand();
         if (command.equals("+")) {
             System.out.println(readFile(filename));
+        }
+    }
+
+    public static void getListNameFiles(ArrayList<String> stringsNamesRecordFiles) {
+        if (stringsNamesRecordFiles.isEmpty()) {
+            System.out.println("\tНі один файл ще не був записаний. Ця операція неможлива, проведіть хоча б одну битву.");
+        } else {
+            System.out.println("\tСписок усіх файлів:");
+            int counterRecord = 1;
+            for (String name : stringsNamesRecordFiles) {
+                System.out.println("\t\t" + counterRecord++ + ") " + name);
+            }
         }
     }
 
@@ -120,16 +134,17 @@ public class Menu {
     }
 
     public static void subMenu2(ArrayList<Droid> droids) {
-        System.out.println("Список дроїдів:");
-        System.out.print(getDroids(droids));
+        System.out.println("\tСписок дроїдів:");
+        System.out.print(getListDroids(droids));
     }
 
-    public static void subMenu3(ArrayList<Droid> droids) {
+    public static void subMenu3(String dirctoryPath, ArrayList<Droid> droids) {
         int sizeDroids = droids.size();
         if (sizeDroids > 1) {
-            System.out.print("\tУведіть номер учасника 1 по списку: ");
+            subMenu2(droids);
+            System.out.print("\tУведіть номер учасника 1 по-списку: ");
             String number1 = inputCommand();
-            System.out.print("\tУведіть номер учасника 2 по списку: ");
+            System.out.print("\tУведіть номер учасника 2 по-списку: ");
             String number2 = inputCommand();
 
             boolean isValid = checkCommand(number1, 1, sizeDroids) && checkCommand(number2, 1, sizeDroids) && !number2.equals(number1);
@@ -141,7 +156,7 @@ public class Menu {
                 ArrayList<Droid> team2 = new ArrayList<>();
                 team2.add(droids.get(index2));
 
-                getBattle(team1, team2);
+                getBattle(dirctoryPath, team1, team2);
             } else {
                 System.out.println("\tПотрібно ввести порядковий номер по списку і дроїди мають бути різні!");
             }
@@ -150,7 +165,7 @@ public class Menu {
         }
     }
 
-    public static void subMenu4(ArrayList<Droid> droids) {
+    public static void subMenu4(String dirctoryPath, ArrayList<Droid> droids) {
         int sizeDroids = droids.size();
         if (sizeDroids > 2) {
             int sizeDroid = droids.size();
@@ -166,18 +181,19 @@ public class Menu {
             }
 
             System.out.println("Список сформованої команди 1:");
-            System.out.println(getDroids(team1));
+            System.out.println(getListDroids(team1));
             System.out.println("Список сформованої команди 2:");
-            System.out.println(getDroids(team2));
+            System.out.println(getListDroids(team2));
 
-            getBattle(team1, team2);
+            getBattle(dirctoryPath, team1, team2);
         } else {
             System.out.println("\tПотрібно для цієї команди від 3 дроїдів.");
         }
     }
 
     public static void subMenu5(ArrayList<Droid> droids) {
-        System.out.print("\tВи дійсно впевнені, що хочете видалити цього дроїда? ('+' - так): ");
+        subMenu2(droids);
+        System.out.print("\tВи дійсно впевнені, що хочете видалити усіх дроїдів? ('+' - так): ");
         if (inputCommand().equals("+")) {
             System.out.println("\t\tСписок дроїдів було очищено.");
             droids.clear();
@@ -187,6 +203,7 @@ public class Menu {
     }
 
     public static void subMenu6(ArrayList<Droid> droids) {
+        subMenu2(droids);
         int sizeDroids = droids.size();
         if (sizeDroids > 0) {
             System.out.print("\tУведіть номер для видалення по списку: ");
@@ -194,9 +211,11 @@ public class Menu {
 
             boolean isValid = checkCommand(number, 1, sizeDroids);
             if (isValid) {
+                int index = Integer.parseInt(number) - 1;
+                System.out.println("\t\t" + droids.get(index));
                 System.out.print("\t\tВи дійсно впевнені, що хочете видалити цього дроїда? ('+' - так): ");
                 if (inputCommand().equals("+")) {
-                    droids.remove(Integer.parseInt(number) - 1);
+                    droids.remove(index);
                 } else {
                     System.out.println("\t\tОперацію було скасовано!");
                 }
@@ -205,6 +224,67 @@ public class Menu {
             }
         } else {
             System.out.println("\tПотрібно для цієї команди мінімум 1 дроїд.");
+        }
+    }
+
+    public static void subMenu7(String directoryPath) {
+        ArrayList<String> stringsNamesRecordFiles = getStringNamesRecordFiles(directoryPath);
+        getListNameFiles(stringsNamesRecordFiles);
+        if (!stringsNamesRecordFiles.isEmpty()) {
+            System.out.print("\t\t\tУведіть номер файлу по-списку, який хочете переглянути: ");
+            String command = inputCommand();
+            boolean isValid = checkCommand(command, 1, stringsNamesRecordFiles.size());
+
+            if (isValid) {
+                int index = Integer.parseInt(command) - 1;
+                System.out.println(readFile(directoryPath + stringsNamesRecordFiles.get(index)));
+            } else {
+                System.out.println("\t\t\t\tТакого файлу за таким номером немає у списку!");
+            }
+        }
+    }
+
+    public static void subMenu8(String directoryPath) {
+        ArrayList<String> stringsNamesRecordFiles = getStringNamesRecordFiles(directoryPath);
+        getListNameFiles(stringsNamesRecordFiles);
+        if (!stringsNamesRecordFiles.isEmpty()) {
+            System.out.print("\t\t\tУведіть номер файлу по-списку, який хочете видалити: ");
+            String command = inputCommand();
+            boolean isValid = checkCommand(command, 1, stringsNamesRecordFiles.size());
+
+            if (isValid) {
+                int index = Integer.parseInt(command) - 1;
+                System.out.print("\t\t\t\tВи дійсно хочете видалити цей файл? ('+' - так): ");
+                isValid = inputCommand().equals("+");
+
+                if (isValid && deleteFile(directoryPath + stringsNamesRecordFiles.get(index))) {
+                    System.out.println("\t\t\t\tФайл " + stringsNamesRecordFiles.get(index) + " було успішно видалено!");
+                } else {
+                    System.out.println("\t\t\t\tФайл " + stringsNamesRecordFiles.get(index) + " НЕ було видалено!");
+                }
+            } else {
+                System.out.println("\t\t\t\tТакого файлу за таким номером немає у списку!");
+            }
+        }
+    }
+
+    public static void subMenu9(String directoryPath) {
+        ArrayList<String> stringsNamesRecordFiles = getStringNamesRecordFiles(directoryPath);
+        getListNameFiles(stringsNamesRecordFiles);
+        if (!stringsNamesRecordFiles.isEmpty()) {
+            System.out.print("\t\t\t\tВи дійсно хочете видалити усі файли боїв? ('+' - так): ");
+            boolean isValid = inputCommand().equals("+");
+
+            if (isValid) {
+                if (deleteAllFiles(directoryPath)) {
+                    System.out.println("\t\t\t\tФайли було успішно видалено!");
+                } else {
+                    System.out.println("\t\t\t\tДеякі файли не було видалено!");
+                    getListNameFiles(getStringNamesRecordFiles(directoryPath));
+                }
+            } else {
+                System.out.println("\t\t\t\tФайли НЕ було видалено!");
+            }
         }
     }
 }
